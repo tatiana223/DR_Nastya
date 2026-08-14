@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090b13" />
+  <meta name="description" content="Очень серьёзное поздравление с днём рождения. Почти." />
+  <title>На всякий случай…</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Russo+One&display=swap');
+    :root{--night:#080a12;--fog:#c7cbd7;--acid:#dfff00;--violet:#9e7bff;--pink:#ff78b9;--paper:#f5f0e7}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--night);font-family:Manrope,system-ui,sans-serif;color:white}
+    body{overflow:hidden}
+    button{font:inherit}
+    .scene{position:fixed;inset:0;overflow:hidden;isolation:isolate;transition:opacity .8s ease,visibility .8s}
+    .graveyard{background:radial-gradient(circle at 50% 62%,#283044 0,transparent 28%),linear-gradient(#070914 0 48%,#11151d 75%,#050608)}
+    .graveyard::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 12% 83%,#89909e45 0 15%,transparent 38%),radial-gradient(ellipse at 82% 73%,#a0a4ae35 0 12%,transparent 35%);filter:blur(14px);animation:fog 10s ease-in-out infinite alternate}
+    .moon{position:absolute;top:7vh;right:10vw;width:clamp(90px,16vw,210px);aspect-ratio:1;border-radius:50%;background:#e4e4d8;box-shadow:0 0 55px #e9e8d05c,0 0 120px #b8c1ee26}
+    .moon::after{content:"";position:absolute;inset:17% 13% auto auto;width:21%;aspect-ratio:1;border-radius:50%;background:#c5c6be;box-shadow:-50px 28px 0 5px #cfd0c7,10px 70px 0 -1px #c9cac2}
+    .stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#fff8 1px,transparent 1px);background-size:91px 91px,137px 137px;background-position:0 0,37px 49px;opacity:.55}
+    .ground{position:absolute;left:-10%;right:-10%;bottom:-13vh;height:37vh;background:#07090b;border-radius:50% 50% 0 0/24% 24% 0 0;box-shadow:0 -14px 50px #222a2d}
+    .cross{position:absolute;bottom:16vh;width:9px;height:90px;background:#121619;opacity:.9}.cross::after{content:"";position:absolute;left:-24px;top:20px;width:57px;height:9px;background:inherit}
+    .c1{left:9%;transform:rotate(-8deg) scale(.8)}.c2{right:14%;transform:rotate(8deg) scale(.6)}.c3{left:24%;transform:rotate(4deg) scale(.45);bottom:22vh}
+    .intro{position:absolute;z-index:3;left:clamp(20px,7vw,100px);top:clamp(22px,8vh,90px);max-width:530px}
+    .eyebrow{margin:0 0 13px;color:#c9c9d2;font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+    h1{font:400 clamp(35px,6vw,78px)/.98 "Russo One",sans-serif;letter-spacing:-.035em;margin:0;text-wrap:balance}
+    .intro p:last-child{max-width:430px;margin:18px 0 0;color:#c4c4cc;font-size:clamp(15px,1.6vw,19px)}
+    .grave-wrap{position:absolute;z-index:4;left:50%;bottom:5vh;transform:translateX(-50%);width:min(430px,80vw);text-align:center}
+    .hint{margin:0 0 15px;color:#e9e9ed;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;animation:breathe 1.5s infinite}
+    .grave{position:relative;width:100%;height:clamp(300px,48vh,470px);border:0;color:#23252a;cursor:pointer;background:linear-gradient(115deg,#c6c8c8,#73787c 72%,#979b9d);clip-path:polygon(16% 100%,11% 33%,15% 18%,26% 7%,50% 0,73% 7%,85% 20%,89% 100%);filter:drop-shadow(0 24px 18px #000a);transition:transform .25s ease,filter .25s}
+    .grave:hover{transform:translateY(-6px);filter:drop-shadow(0 32px 24px #000c) brightness(1.08)}.grave:focus-visible{outline:4px solid var(--acid);outline-offset:8px}
+    .grave::before{content:"";position:absolute;inset:5% 8% 4%;clip-path:inherit;border:3px solid #52575a88}
+    .grave::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 32%,#fff3 36%,transparent 41%),repeating-linear-gradient(102deg,transparent 0 61px,#2e323411 62px 64px)}
+    .epitaph{position:absolute;z-index:2;inset:31% 18% auto;text-shadow:0 1px #fff6}.small{display:block;font-size:12px;font-weight:800;letter-spacing:.16em}.name{display:block;margin:13px 0 11px;font:400 clamp(25px,5vw,44px)/1 "Russo One",sans-serif}.dates{display:block;font-size:13px;font-weight:700}.tap{position:absolute;z-index:3;left:50%;bottom:14%;transform:translateX(-50%);font-size:24px}
+    .crack{position:absolute;z-index:4;left:46%;top:22%;width:3px;height:0;background:#25282b;opacity:0;transform:rotate(-11deg);transition:height .25s,opacity .08s}.crack::after{content:"";position:absolute;top:42px;width:30px;height:3px;background:#25282b;transform:rotate(48deg);transform-origin:left}
+    .reveal{position:absolute;z-index:5;inset:0;display:grid;place-items:center;background:#050609e8;opacity:0;visibility:hidden;transition:.25s}
+    .reveal.show{opacity:1;visibility:visible}.reveal.show .word{animation:slam .65s cubic-bezier(.18,.9,.2,1) both}
+    .word{font:400 clamp(95px,28vw,360px)/.8 "Russo One",sans-serif;letter-spacing:-.07em;color:var(--acid);text-shadow:8px 8px 0 #6e00ff,-7px -6px 0 #ff3b91;transform:scale(4) rotate(-9deg);user-select:none}
+    .caption{position:absolute;bottom:10vh;left:20px;right:20px;text-align:center;font-size:clamp(15px,2vw,22px);font-weight:800}
+    .continue{position:absolute;z-index:7;right:clamp(18px,5vw,70px);bottom:clamp(18px,5vh,55px);border:1px solid #ffffff38;border-radius:999px;padding:14px 19px;color:white;background:#ffffff14;backdrop-filter:blur(8px);cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:.4s}
+    .continue.ready{opacity:1;transform:none;pointer-events:auto}.continue:hover{background:white;color:#111}
+    .alive{visibility:hidden;opacity:0;background:linear-gradient(135deg,#ff8fc8 0 28%,#9d7dff 56%,#dfff00 100%);color:#101016}
+    .alive.active{visibility:visible;opacity:1}.graveyard.gone{visibility:hidden;opacity:0}
+    .alive::before{content:"";position:absolute;inset:-20%;background:repeating-linear-gradient(90deg,transparent 0 10vw,#fff2 10vw 10.25vw),repeating-linear-gradient(0deg,transparent 0 10vw,#fff2 10vw 10.25vw);transform:rotate(-12deg);animation:drift 12s linear infinite}
+    .blob{position:absolute;border-radius:50%;filter:blur(1px);mix-blend-mode:soft-light}.b1{width:40vw;height:40vw;left:-12vw;top:-15vw;background:#fff}.b2{width:34vw;height:34vw;right:-8vw;bottom:-12vw;background:#ff397d}
+    .card{position:absolute;z-index:2;inset:50% auto auto 50%;transform:translate(-50%,-50%) rotate(-2deg);width:min(880px,88vw);padding:clamp(29px,6vw,72px);background:var(--paper);border:3px solid #111;box-shadow:14px 14px 0 #111;text-align:left}
+    .alive.active .card{animation:cardIn .8s .15s cubic-bezier(.2,.85,.2,1) both}
+    .label{display:inline-block;padding:7px 11px;background:#111;color:white;font-size:11px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;transform:rotate(2deg)}
+    .card h2{max-width:750px;margin:22px 0 20px;font:400 clamp(40px,7vw,88px)/.94 "Russo One",sans-serif;letter-spacing:-.045em}.card h2 span{display:inline;color:#724bff}
+    .wish{max-width:670px;margin:0;font-size:clamp(17px,2vw,23px);line-height:1.55;font-weight:600}.wish strong{background:var(--acid);padding:0 5px}
+    .signature{margin:28px 0 0;font-weight:800;font-size:14px}.restart{position:absolute;z-index:4;right:24px;top:22px;border:0;background:transparent;font-size:26px;cursor:pointer;transition:transform .25s}.restart:hover{transform:rotate(-160deg)}
+    .oath-open{margin-top:21px;border:2px solid #111;border-radius:999px;padding:11px 17px;background:var(--acid);color:#111;box-shadow:4px 4px 0 #111;font-size:12px;font-weight:900;cursor:pointer;transition:.18s}.oath-open:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #111}.oath-open:active{transform:translate(3px,3px);box-shadow:1px 1px 0 #111}
+    .oath-overlay{position:fixed;z-index:40;inset:0;display:grid;place-items:center;padding:20px;background:#090b12e8;opacity:0;visibility:hidden;transition:.35s}.oath-overlay.show{opacity:1;visibility:visible}.oath-paper{position:relative;width:min(650px,92vw);max-height:92vh;overflow:auto;padding:clamp(28px,6vw,58px);background:#f2ead8;color:#171617;border:1px solid #b2a78f;box-shadow:0 30px 90px #000b,12px 12px 0 #bd1645;transform:translateY(35px) rotate(3deg) scale(.9);transition:.5s cubic-bezier(.16,.9,.2,1);background-image:repeating-linear-gradient(0deg,transparent 0 31px,#796e5514 32px)}.oath-overlay.show .oath-paper{transform:none}.oath-kicker{text-align:center;font-size:10px;font-weight:900;letter-spacing:.22em;text-transform:uppercase}.oath-paper h3{text-align:center;margin:10px 0 25px;font:400 clamp(28px,6vw,48px)/1 "Russo One",sans-serif}.oath-text{font:600 clamp(16px,2.4vw,21px)/1.65 Georgia,serif}.oath-text strong{font-weight:900}.oath-sign{margin:28px 0 0;padding-top:14px;border-top:1px solid #6f6758;font:italic 16px Georgia,serif}.stamp{display:grid;place-items:center;width:clamp(180px,42vw,260px);aspect-ratio:1;margin:-12px 0 -28px auto;border:8px double #bd1645;border-radius:50%;color:#bd1645;font:400 clamp(19px,4vw,28px)/1.05 "Russo One",sans-serif;text-align:center;text-transform:uppercase;transform:rotate(-13deg);opacity:.88;animation:stampIn .55s .4s cubic-bezier(.2,1.5,.4,1) both}.oath-close{position:absolute;right:12px;top:10px;border:0;background:transparent;color:#111;font-size:27px;cursor:pointer}.oath-date{display:block;margin-top:5px;font:700 11px Manrope,sans-serif;letter-spacing:.08em}.oath-print{margin-top:20px;border:2px solid #111;border-radius:999px;padding:9px 15px;background:#111;color:white;font-weight:800;cursor:pointer}
+    .confetti{position:fixed;z-index:10;top:-25px;width:10px;height:18px;pointer-events:none;animation:fall var(--speed) linear forwards}
+    .shake{animation:shake .36s linear}
+    @keyframes fog{to{transform:translateX(8vw) scale(1.1)}}@keyframes breathe{50%{opacity:.45;transform:translateY(3px)}}
+    @keyframes slam{0%{transform:scale(4) rotate(-9deg);opacity:0}65%{transform:scale(.82) rotate(3deg);opacity:1}82%{transform:scale(1.08) rotate(-1deg)}100%{transform:scale(1) rotate(0)}}
+    @keyframes shake{20%{transform:translate(-8px,3px)}40%{transform:translate(7px,-4px)}60%{transform:translate(-5px,2px)}80%{transform:translate(3px,-1px)}}
+    @keyframes cardIn{from{opacity:0;transform:translate(-50%,-42%) rotate(5deg) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) rotate(-2deg) scale(1)}}
+    @keyframes drift{to{transform:rotate(-12deg) translateX(10vw)}}@keyframes fall{to{transform:translate(var(--drift),110vh) rotate(760deg)}}
+    @keyframes stampIn{from{opacity:0;transform:rotate(-13deg) scale(3)}to{opacity:.88;transform:rotate(-13deg) scale(1)}}
+    @media(max-width:720px){.intro{right:20px}.grave-wrap{bottom:2vh}.grave{height:42vh}.moon{top:19vh;right:3vw}.caption{bottom:14vh}.continue{left:50%;right:auto;transform:translate(-50%,12px);white-space:nowrap}.continue.ready{transform:translateX(-50%)}.card{box-shadow:9px 9px 0 #111}.restart{right:12px;top:10px}}
+    @media(max-height:690px){.intro p:last-child{display:none}.intro{top:22px}.grave{height:58vh}.grave-wrap{bottom:-4vh}.caption{bottom:7vh}}
+    @media print{body>*:not(.oath-overlay){display:none!important}.oath-overlay{position:static;display:block;opacity:1;visibility:visible;background:white;padding:0}.oath-paper{width:100%;max-height:none;overflow:visible;border:0;box-shadow:none;transform:none}.oath-close,.oath-print{display:none}}
+    @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="scene graveyard" id="graveyard" aria-label="Очень серьёзная сцена">
+      <div class="stars"></div><div class="moon"></div><div class="cross c1"></div><div class="cross c2"></div><div class="cross c3"></div><div class="ground"></div>
+      <header class="intro">
+        <p class="eyebrow">Важное заявление · 100% серьёзности</p>
+        <h1>Если ты умрёшь самой тупой смертью…</h1>
+        <p>…то я обещаю ответственно подойти к оформлению твоего последнего послания миру.</p>
+      </header>
+      <div class="grave-wrap">
+        <p class="hint">нажми на надгробие ↓</p>
+        <button class="grave" id="grave" aria-label="Нажать на надгробие и узнать надпись">
+          <span class="epitaph"><span class="small">Здесь могла бы лежать</span><span class="name">Настя</span><span class="dates"> R.I.P — ?</span></span>
+          <span class="crack" id="crack"></span><span class="tap">☝</span>
+        </button>
+      </div>
+      <div class="reveal" id="reveal" aria-live="polite"><div class="word">ЛОХ</div><div class="caption">именно это я напишу на твоём надгробии. С любовью, конечно ♡</div></div>
+      <button class="continue" id="continue">ладно, а теперь серьёзно →</button>
+    </section>
+    <section class="scene alive" id="alive" aria-label="Поздравление с днём рождения">
+      <div class="blob b1"></div><div class="blob b2"></div>
+      <button class="restart" id="restart" aria-label="Посмотреть сначала">↻</button>
+      <article class="card">
+        <span class="label">план на ближайшие 100 лет</span>
+        <h2>А пока — <span>живи.</span></h2>
+        <p class="wish">Живи самой счастливой жизнью. Продолжай быть такой же яркой, разрешаю делать глупости только <strong>не смертельные</strong> и всегда оставайся тем самым человеком, с которым даже полный трэш становится лучшей историей ахахах.</p>
+        <p class="signature">С днём рождения! Целую, Обнимаю ♡</p>
+        <button class="oath-open" id="oathOpen">Подписать клятву не умереть тупо →</button>
+      </article>
+    </section>
+  </main>
+  <div class="oath-overlay" id="oathOverlay" role="dialog" aria-modal="true" aria-labelledby="oathTitle">
+    <article class="oath-paper">
+      <button class="oath-close" id="oathClose" aria-label="Закрыть документ">×</button>
+      <div class="oath-kicker">официальный документ · обратной силы не имеет</div>
+      <h3 id="oathTitle">КЛЯТВА НЕ УМЕРЕТЬ ТУПО</h3>
+      <div class="oath-text">Я, <strong>Настя</strong>, торжественно клянусь<br>не становиться причиной максимально нелепого некролога.<br><br>Если не получится — разрешаю написать <strong>«ЛОХ»</strong>.</div>
+      <p class="oath-sign">Подписано: именинница, находящаяся в здравом уме (предположительно).<span class="oath-date" id="oathDate"></span></p>
+      <div class="stamp">ОДОБРЕНО<br>ДОЖИТЬ ДО<br>100 ЛЕТ</div>
+      <button class="oath-print" id="oathPrint">сохранить как вещественное доказательство</button>
+    </article>
+  </div>
+  <script>
+    const grave=document.querySelector('#grave');
+    const reveal=document.querySelector('#reveal');
+    const more=document.querySelector('#continue');
+    const graveyard=document.querySelector('#graveyard');
+    const alive=document.querySelector('#alive');
+    let opened=false;
+    function thump(){
+      try{const a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.setValueAtTime(75,a.currentTime);o.frequency.exponentialRampToValueAtTime(35,a.currentTime+.18);g.gain.setValueAtTime(.16,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.2);o.start();o.stop(a.currentTime+.2)}catch(e){}
+    }
+    grave.addEventListener('click',()=>{
+      if(opened)return;opened=true;document.querySelector('#crack').style.opacity='1';document.querySelector('#crack').style.height='105px';document.body.classList.add('shake');thump();
+      setTimeout(()=>{reveal.classList.add('show');document.body.classList.remove('shake');thump()},240);
+      setTimeout(()=>more.classList.add('ready'),1200);
+    });
+    more.addEventListener('click',()=>{alive.classList.add('active');graveyard.classList.add('gone');confetti(120)});
+    document.querySelector('#restart').addEventListener('click',()=>{alive.classList.remove('active');graveyard.classList.remove('gone');reveal.classList.remove('show');more.classList.remove('ready');document.querySelector('#crack').style.height='0';document.querySelector('#crack').style.opacity='0';opened=false});
+    const oathOverlay=document.querySelector('#oathOverlay');
+    document.querySelector('#oathOpen').addEventListener('click',()=>{document.querySelector('#oathDate').textContent='Дата подписания: сегодня и навсегда';oathOverlay.classList.add('show');confetti(70)});
+    document.querySelector('#oathClose').addEventListener('click',()=>oathOverlay.classList.remove('show'));
+    oathOverlay.addEventListener('click',e=>{if(e.target===oathOverlay)oathOverlay.classList.remove('show')});
+    document.querySelector('#oathPrint').addEventListener('click',()=>window.print());
+    function confetti(count){const colors=['#dfff00','#ff3b91','#6e00ff','#fff','#111'];for(let i=0;i<count;i++){const el=document.createElement('i');el.className='confetti';el.style.cssText=`left:${Math.random()*100}vw;background:${colors[i%colors.length]};--speed:${2.4+Math.random()*3}s;--drift:${-120+Math.random()*240}px;animation-delay:${Math.random()*.7}s`;document.body.append(el);setTimeout(()=>el.remove(),6500)}}
+  </script>
+</body>
+</html>
